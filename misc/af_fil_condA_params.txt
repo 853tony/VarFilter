@@ -1,0 +1,7 @@
+"none" "999" "eas" "0.01" 
+"sas,mid,nfe,fin,afr,ami,amr,asj,remaining" "0.5" "eas" "0.01" 
+"sas,mid,nfe,fin,afr,ami,amr,asj,remaining" "5" "eas" "0.01" 
+"sas,mid,nfe,fin,afr,ami,amr,asj,remaining" "10" "eas" "0.01" 
+"mid,nfe,fin,afr,ami,amr,asj" "10" "eas" "0.01" 
+"sas,mid,afr,ami,remaining" "10" "eas" "0.01" 
+"sas,mid,afr,ami,amr,asj,remaining" "10" "eas" "0.01"
