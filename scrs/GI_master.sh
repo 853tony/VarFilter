@@ -28,6 +28,14 @@ if [ $module == "af" ]; then
 	if [ $submodule == "extraction" ]; then
 		sbatch ${scrdir}/01_allele_freq_extraction.sh ${datadir} ${wkdir} ${scrdir}
 	fi
+
+	if [ $submodule == "extraction_without_RMI-AMI-MID" ]; then
+		extracted=$6
+		outp=$7
+		cols=$8
+                sbatch ${scrdir}/01_2_allele_freq_extraction.sh ${wkdir} ${extracted} ${outp} ${cols}
+	fi
+
 fi
 
 #**************************************************************#
@@ -41,44 +49,70 @@ if [ $module == "filtering" ]; then
 	scrdir=$4
 	cp=$5
 	FC=$6
-	model_count=$7
-	shift 7
-	
-	params=("$@:1:$((${#@} - $model_count))")
-	models=("${@:${#@} - $model_count + 1:$model_count}")
+	e1=$7
+	l1=$8
+	e2=$9
+	l2=$10
+        extracted=$11 #input_tsv_file
+        inp=$12 #input_params_file
 
-#***************************************#
-#		codition A		#
-#***************************************#
+#****************************************************************#
+#               all8/all7-any allele count > 0                   #
+#****************************************************************#
 
-	if [ $submodule == "condA" ]; then
-		sbatch ${scrdir}/02_allele_freq_filtering_A.sh ${wkdir} ${scrdir} ${cp} ${FC} ${model_count} "${params[@]}" "${models[@]}"
+	if [ $submodule == "AC_all8" ]; then
+		declare -a ALL8_ACnz
+
+		while IFS= read -r line; do
+			params=($line)
+			case "${params[0]}" in
+			"\"ALL8_ACnz\"")
+				ALL8_ACnz+=("${params[1]}" "${params[2]}" "${params[3]}" "${params[4]}" "${params[5]}")	
+			esac
+		done < "$inp"
+
+		for cond in ALL8_ACnz; do
+
+			case $cond in
+			ALL8_ACnz)
+				if [ ${#ALL8_ACnz[@]} -ne 0 ]; then
+					echo "codition: ${ALL8_ACnz[@]}"
+					sbatch "${scrdir}/02_allele_freq_filtering.sh" "${submodule}" "${wkdir}" "${scrdir}" "${cp}" "${FC}" ${e1} ${l1} ${e2} ${l2} "${extracted}" "${ALL8_ACnz[@]}"
+				else
+					echo "Warning: $cond is empty. Skipping execution for $cond."
+				fi
+			esac
+		done
 	fi
 
-#***************************************#
-#               codition B              #
-#***************************************#
 
-	if [ $submodule == "condB" ]; then
-		sbatch ${scrdir}/02_allele_freq_filtering_B.sh ${wkdir} ${scrdir} ${cp} ${FC} ${model_count} "${params[@]}" "${models[@]}"
-	fi
+	if [ $submodule == "AC_all7" ]; then
+		declare -a ALL7_ACnz
 
-#***************************************#
-#               codition C              #
-#***************************************#
+		while IFS= read -r line; do
+			params=($line)
+			case "${params[0]}" in
+			"\"ALL7_ACnz\"")
+				ALL7_ACnz+=("${params[1]}" "${params[2]}" "${params[3]}" "${params[4]}" "${params[5]}")
+			esac
+		done < "$inp"
 
-	if [ $submodule == "condC" ]; then
-		sbatch ${scrdir}/02_allele_freq_filtering_C.sh ${wkdir} ${scrdir} ${cp} ${FC} ${model_count} "${params[@]}" "${models[@]}"
-	fi
+		for cond in ALL7_ACnz; do
 
-#***************************************#
-#               codition D              #
-#***************************************#
-
-	if [ $submodule == "condD" ]; then
-		sbatch ${scrdir}/02_allele_freq_filtering_D.sh ${wkdir} ${scrdir} ${cp} ${FC} ${model_count} "${params[@]}" "${models[@]}"
+			case $cond in
+			ALL7_ACnz)
+				if [ ${#ALL7_ACnz[@]} -ne 0 ]; then
+					echo "codition: ${ALL7_ACnz[@]}"
+					sbatch "${scrdir}/02_allele_freq_filtering.sh" "${submodule}" "${wkdir}" "${scrdir}" "${cp}" "${FC}" ${e1} ${l1} ${e2} ${l2} "${extracted}" "${ALL7_ACnz[@]}"
+				else
+					 echo "Warning: $cond is empty. Skipping execution for $cond."
+				fi
+			esac
+		done
 	fi
 fi
+
+
 
 #********************************************************#
 #                       Module: GET                      #
