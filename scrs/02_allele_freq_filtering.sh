@@ -29,7 +29,7 @@ e1=$6
 l1=$7
 e2=$8
 l2=$9
-extracted=$10
+extracted=${10}
 shift 10
 
 command > ../../log_dir/${submodule}_filtering.log.txt
