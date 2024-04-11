@@ -52,64 +52,87 @@ if [ $module == "filtering" ]; then
 	e1=$7
 	l1=$8
 	e2=$9
-	l2=$10
-        extracted=$11 #input_tsv_file
-        inp=$12 #input_params_file
+	l2=${10}
+        extracted=${11} #input_tsv_file
+        inp=${12} #input_params_file
+
+# Function definition: Submit Job
+function submit_job {
+    local var_name=$1
+    local var_array=("${!2}")  # Use name reference to indirectly access arrays
+    if [ ${#var_array[@]} -ne 0 ]; then
+        echo "Condition: ${var_array[@]}"
+
+sbatch "${scrdir}/02_allele_freq_filtering.sh" "${submodule}" "${wkdir}" "${scrdir}" \
+"${cp}" "${FC}" \
+"${e1}" "${l1}" "${e2}" "${l2}" \
+"${extracted}" \
+"${var_array[@]}"
+
+    else
+        echo "Warning: $var_name is empty. Skipping execution for $var_name."
+    fi
+}
+
+# Function definition: Parse and Fill Arrays
+function parse_and_fill_arrays {
+    local inp_file=$1
+    shift  # Remove the first argument (file name), the rest are array names
+    declare -A array_map=()  # Associative array, mapping identifiers to array names
+
+    # Dynamically build associative array mapping
+    for array_name in "$@"; do
+        array_map["\"$array_name\""]=$array_name
+    done
+
+    echo "Starting to read from input file: $inp_file"
+
+    while IFS= read -r line; do
+        echo "Reading line: $line"
+        IFS=' ' read -ra params <<< "$line"  # Temporarily change IFS to space to parse line
+        echo "Params read: ${params[@]}"
+        echo ""
+
+        local identifier=${params[0]}
+        local target_array=${array_map[$identifier]}
+
+        if [[ -n "$target_array" ]]; then
+            echo "Adding to $target_array: ${params[@]:1}"
+            echo ""
+
+            eval "$target_array+=(\"\${params[@]:1}\")"  # Dynamically add elements
+        fi
+    done < "$inp_file"
+}
 
 #****************************************************************#
 #               all8/all7-any allele count > 0                   #
 #****************************************************************#
 
-	if [ $submodule == "AC_all8" ]; then
-		declare -a ALL8_ACnz
+if [ "$submodule" == "ALL8_ACnz" ]; then
+    declare -a ${submodule}
 
-		while IFS= read -r line; do
-			params=($line)
-			case "${params[0]}" in
-			"\"ALL8_ACnz\"")
-				ALL8_ACnz+=("${params[1]}" "${params[2]}" "${params[3]}" "${params[4]}" "${params[5]}")	
-			esac
-		done < "$inp"
+    # Use the function to populate arrays
+    parse_and_fill_arrays "${inp}" "${submodule}"
 
-		for cond in ALL8_ACnz; do
+    # Iterate over all arrays and attempt to submit jobs
+    for var in ${submodule}; do
+        submit_job "$var" "${var}[@]"
+    done
+fi
 
-			case $cond in
-			ALL8_ACnz)
-				if [ ${#ALL8_ACnz[@]} -ne 0 ]; then
-					echo "codition: ${ALL8_ACnz[@]}"
-					sbatch "${scrdir}/02_allele_freq_filtering.sh" "${submodule}" "${wkdir}" "${scrdir}" "${cp}" "${FC}" ${e1} ${l1} ${e2} ${l2} "${extracted}" "${ALL8_ACnz[@]}"
-				else
-					echo "Warning: $cond is empty. Skipping execution for $cond."
-				fi
-			esac
-		done
-	fi
+if [ "$submodule" == "ALL7_ACnz" ]; then
+    declare -a ${submodule}
 
+    # Use the function to populate arrays
+    parse_and_fill_arrays "${inp}" "${submodule}"
 
-	if [ $submodule == "AC_all7" ]; then
-		declare -a ALL7_ACnz
+    # Iterate over all arrays and attempt to submit jobs
+    for var in ${submodule}; do
+        submit_job "$var" "${var}[@]"
+    done
+fi  
 
-		while IFS= read -r line; do
-			params=($line)
-			case "${params[0]}" in
-			"\"ALL7_ACnz\"")
-				ALL7_ACnz+=("${params[1]}" "${params[2]}" "${params[3]}" "${params[4]}" "${params[5]}")
-			esac
-		done < "$inp"
-
-		for cond in ALL7_ACnz; do
-
-			case $cond in
-			ALL7_ACnz)
-				if [ ${#ALL7_ACnz[@]} -ne 0 ]; then
-					echo "codition: ${ALL7_ACnz[@]}"
-					sbatch "${scrdir}/02_allele_freq_filtering.sh" "${submodule}" "${wkdir}" "${scrdir}" "${cp}" "${FC}" ${e1} ${l1} ${e2} ${l2} "${extracted}" "${ALL7_ACnz[@]}"
-				else
-					 echo "Warning: $cond is empty. Skipping execution for $cond."
-				fi
-			esac
-		done
-	fi
 fi
 
 

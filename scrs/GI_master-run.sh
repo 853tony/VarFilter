@@ -27,21 +27,21 @@ wkdir=/staging/biology/edwardch826/projects/genetic_incompatibility_MAF/
 # Allele number VarFilter for all8
 cp=AC_joint_
 float_columns="AC_joint,AC_joint_XX,AC_joint_XY,AC_joint_eas,AC_joint_sas,AC_joint_mid,AC_joint_nfe,AC_joint_fin,AC_joint_afr,AC_joint_amr,AC_joint_asj"
-bash ${scrdir}/GI_master.sh "filtering" "AC_all8" \
+bash ${scrdir}/GI_master.sh "filtering" "ALL8_ACnz" \
 ${wkdir} ${scrdir} ${cp} ${float_columns} \
 "FALSE" "any" "FALSE" "any" \
 "MAF_METADATA_ALL8_gnomadv4_exomes_v2.tsv" \
-${wkdir}/VarFilter/misc/all8_varfilter_params.txt
+"${wkdir}/VarFilter/misc/all8_varfilter_params.txt"
 
 # Allele number VarFilter for all7
 cp=AC_joint_
 float_columns="AC_joint,AC_joint_XX,AC_joint_XY,AC_joint_eas,AC_joint_sas,AC_joint_nfe,AC_joint_fin,AC_joint_afr,AC_joint_amr,AC_joint_asj"
 
-bash ${scrdir}/GI_master.sh "filtering" "AC_all7" \
+bash ${scrdir}/GI_master.sh "filtering" "ALL7_ACnz" \
 ${wkdir} ${scrdir} ${cp} ${float_columns} \
 "FALSE" "any" "FALSE" "any" \
 "MAF_METADATA_ALL7_gnomadv4_exomes_v3.tsv" \
-${wkdir}/VarFilter/misc/all7_varfilter_params.txt
+"${wkdir}/VarFilter/misc/all7_varfilter_params.txt"
 
 
 ### #1.module #2.submodule #3.wkdir #4.scrdir #5.col_name_prefix #6.float_columns #7.model_count
