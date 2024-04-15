@@ -1,0 +1,1 @@
+"ALL10_ACeq0" "ALL10_ACeq0" none 999 eas,sas,mid,nfe,fin,afr,ami,amr,asj,remaining 0
