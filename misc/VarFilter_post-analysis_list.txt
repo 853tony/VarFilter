@@ -1,0 +1,6 @@
+MAF_METADATA_gnomadv4_exomes.tsv
+VarFilter_ALL10_ACqc.tsv
+VarFilter_ModelA_ALL8_ACqc.tsv
+VarFilter_ModelA_ALL8_ACqcANqc.tsv
+VarFilter_ModelB_ALL7_ACqc.tsv
+VarFilter_ModelB_ALL7_ACqcANqc.tsv
