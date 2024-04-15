@@ -4,11 +4,11 @@
 
 #SBATCH -J GI_VarFilter
 
-#SBATCH -p ngs372G
+#SBATCH -p ngs186G
 
-#SBATCH -c 56
+#SBATCH -c 28
 
-#SBATCH --mem=372g
+#SBATCH --mem=186g
 
 #SBATCH -o ../../log_dir/GI_VarFilter.out.log
 
@@ -31,12 +31,6 @@ e2=$8
 l2=$9
 extracted=${10}
 shift 10
-
-command > ../../log_dir/${submodule}_filtering.log.txt
-log_file="../../log_dir/${submodule}_filtering.log.txt"
-exec > "$log_file" 2>&1
-echo "Filtering script started at $(date)"
-
 
 process_model() {
     local params=("${@}")
@@ -73,6 +67,11 @@ process_model() {
         else
             input_file="${wkdir}/${new_input}"
         fi
+
+        command > ../../log_dir/${models_val}_filtering.log.txt
+        log_file="../../log_dir/${models_val}_filtering.log.txt"
+        exec > "$log_file" 2>&1
+        echo "Filtering script started at $(date)"
 
 	echo ""
         echo "CONDITION, $models_val"

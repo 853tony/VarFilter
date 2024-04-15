@@ -51,7 +51,7 @@ def main():
 # Write gene variants to .gvlist file
     gvlist_filename = f'{args.outp}.gvlist'
     with open(gvlist_filename, 'w') as gvlist_file:
-        gvlist_file.write('# This file was produced by GET, Genomic Extraction Tool\n')
+        gvlist_file.write('# The Genomic Extraction Tool (GET) was produced by Tony Che, post on https://github.com/853tony/VarFilter\n')
         gvlist_file.write('# Gene-Specific Variant Counts\n')
         gvlist_file.write('# Each entry delineates a gene symbol followed by its associated count of variants.\n')
         gvlist_file.write('# Gene Symbol\tVariant Count\n')
@@ -62,11 +62,11 @@ def main():
     summary_filename = f'{args.outp}.summary'
     with open(summary_filename, 'w') as summary_file:
     # Refining summary information presentation
-        summary_file.write('# This file was produced by GET, Genomic Extraction Tool\n')
+        summary_file.write('# The Genomic Extraction Tool (GET) was produced by Tony Che, post on https://github.com/853tony/VarFilter\n')
         summary_file.write('# Summary of Genetic Variant Analysis\n')
         summary_file.write('# This document summarizes the analysis of gene variants and their consequences, derived from the provided dataset.\n\n')
-        summary_file.write(f'Your dataset covers genes (count uniquely): {total_genes}\n')
         summary_file.write(f'Total Number of Variants: {total_variants}\n')
+        summary_file.write(f'Your dataset covers genes (count uniquely): {total_genes}\n')
         summary_file.write(f'Variants Mapped to Known Genes: {variants_with_gene}\n')
         summary_file.write(f'Variants Not Mapped to Any Gene: {variants_without_gene}\n\n') 
         
