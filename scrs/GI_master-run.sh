@@ -85,8 +85,20 @@ all7_AF_fc="AF_joint,AF_joint_XX,AF_joint_XY,AF_joint_eas,AF_joint_sas,AF_joint_
 #############################################################################################
 
 ### stats # post-analysis
-### #1.module #2.submodule #3.wkdir #4.scrdir #5.filename
-#bash ${scrdir}/GI_master.sh GET stats ${wkdir} ${scrdir} MAF_METADATA_gnomadv4_exomes.tsv
+## #1.module #2.submodule #3.wkdir #4.scrdir #5.filename
+#@4basic stats
+input_dir="${wkdir}"
+post_analysis_list="${miscdir}/VarFilter_post-analysis_list.txt"
+
+while IFS= read -r filename; do
+
+    file="${input_dir}${filename}"
+
+    if [[ -f "$file" && $file == *.tsv ]]; then
+        bash "${scrdir}/GI_master.sh" "GET" "post_analysis" "${wkdir}" "${scrdir}" "${filename}"
+    fi
+done < "$post_analysis_list"
+
 
 #@4a stats
 #input_dir="${wkdir}/ModelA/"
@@ -105,19 +117,5 @@ all7_AF_fc="AF_joint,AF_joint_XX,AF_joint_XY,AF_joint_eas,AF_joint_sas,AF_joint_
 #               bash ${scrdir}/GI_master.sh "GET" "ModelB" ${wkdir} ${scrdir} ${filename}
 #       fi
 #done
-
-#@4a stats
-input_dir="${wkdir}/ModelB/"
-non_run_list="${wkdir}/non_run_list.txt"
-
-while IFS= read -r filename; do
-
-    file="${input_dir}${filename}"
-
-
-    if [[ -f "$file" && $file == *.tsv ]]; then
-        bash "${scrdir}/GI_master.sh" "GET" "ModelB" "${wkdir}" "${scrdir}" "${filename}"
-    fi
-done < "$non_run_list"
 
 #############################################################################################
