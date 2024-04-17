@@ -1,11 +1,10 @@
-VarFilter
+# VarFilter
 
-This is a variants filter pipeline for the INFO field from VCF. 
-We used the pipeline in gnomADv4.0.0 for allele count, allele number, and frequency analysis. Also includes severe conditions for identifying ancestries' differences in allele frequency. 
-Finally, we summarize all the information to conduct the simple statics.
+This is a variants filtering analysis pipeline for the WES from gnomAD v4.0.0. 
+We analysis the gnomADv4.0.0 data for allele count, allele number, and allele frequency. 
+This study aims to identify population-specific common or rare genetic variants by leveraging WES data and analyzing differences in allele frequencies across populations. We employed a customized filtering and analysis pipeline that includes data extraction, variant filtering.
 
-This study aims to identify population-specific common or rare genetic variants by leveraging whole-exome sequencing data and analyzing differences in allele frequencies across populations. We employed a customized filtering and analysis pipeline that includes data extraction, variant filtering.
-
+### Variant extraction
 First, we used BCFtools to decompress the compressed VCF files and calculate variant statistics for each chromosome. Next, we developed a Python script that utilizes the cyvcf2 package to extract allele frequencies and other relevant information from the VCF files and organize the results into a standard TSV format.
 
 | Chromosome | Number of Records | Number of SNPs | Number of Indels |
@@ -36,14 +35,22 @@ First, we used BCFtools to decompress the compressed VCF files and calculate var
 | chrY       | 140758            | 128336         | 12422            |
 | Total      | 183558769         | 167897387      | 15661381         |
 
+### Variant QC
 In variant filtering process, initially, we performed quality control based on allele count (AC) and allele number (AN) values. We then employed two population genetic structure models, ModelA and ModelB, to account for different population stratification scenarios. 
 ModelA considered eight populations (EAS, SAS, NFE, FIN, AFR, AMR, ASJ, and MID).
 ModelB focused on seven populations (EAS, SAS, NFE, FIN, AFR, AMR, and ASJ).
 
+| STEP | Description | Number of Records |
+|------|----|-------------------|
+| 0    | extract the vcf | 183558769 |
+| 1    | Keep any AC > 0 in all pop | 86291641 |
+| 2A   | ModelA: Keep any AC > 0 in 8 pop | 84048207 |
+| 3A   | ModelA: Keep all AN > 0 in 8 pop | 83977475 |
+| 2B   | ModelB: Keep any AC > 0 in 7 pop | 83515954 |
+| 3B   | ModelB: Keep all AN > 0 in 7 pop | 83458401 |
+
+### Variant filtering
 We designed a series of filtering condition combinations based on allele frequency differences among populations to progressively narrow down the candidate variant set. The filtering conditions included:
-
-Variants with allele frequency greater than or equal to 1%, 5%, 10%, or 20% in the target population and less than 0.5%, 0.1%, 0.05%, or 0.01% in all other populations.
-Variants with allele frequency less than 0.5%, 0.1%, 0.05%, or 0.01% in the target population and greater than or equal to 1%, 5%, 10%, or 20% in all other populations.
-These conditions were applied to each population in both ModelA and ModelB, resulting in a total of 256 condition combinations for ModelA and 224 condition combinations for ModelB. These condition combinations were implemented using custom Python scripts that can flexibly handle different population combinations and frequency thresholds.
-
-These conditions were applied to each population in both ModelA and ModelB, resulting in a total of 256 condition combinations for ModelA and 224 condition combinations for ModelB. These condition combinations were implemented using custom Python scripts that can flexibly handle different population combinations and frequency thresholds.
+- Variants with allele frequency greater than or equal to 1%, 5%, 10%, or 20% in the target population and less than 0.5%, 0.1%, 0.05%, or 0.01% in all other populations.
+- Variants with allele frequency less than 0.5%, 0.1%, 0.05%, or 0.01% in the target population and greater than or equal to 1%, 5%, 10%, or 20% in all other populations.
+These conditions were applied to each population in both ModelA and ModelB, resulting in a total of 256 condition combinations for ModelA and 224 condition combinations for ModelB. 
