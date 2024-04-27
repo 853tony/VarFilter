@@ -2,17 +2,17 @@
 
 #SBATCH -A MST109178
 
-#SBATCH -J GET_modelA/B
+#SBATCH -J GET
 
-#SBATCH -p ngs13G
+#SBATCH -p ngs26G
 
-#SBATCH -c 2
+#SBATCH -c 4
 
-#SBATCH --mem=13g
+#SBATCH --mem=26g
 
-#SBATCH -o ../../log_dir/GET_ModelAorB.out.log
+#SBATCH -o ../../log_dir/GET.out.log
 
-#SBATCH -e ../../log_dir/GET_ModelAorB.err.log
+#SBATCH -e ../../log_dir/GET.err.log
 
 #SBATCH --mail-user=d12456001@g.ntu.edu.tw    # email
 
@@ -24,8 +24,9 @@ module add biology/Python/3.11.0
 submodule=$1
 wkdir=$2
 scrdir=$3
-file=$4
-input=${wkdir}/${submodule}/${file}
+inputdir=$4
+file=$5
+input=${inputdir}/${file}
 output_name=$(basename $input .tsv)
 output_dir=${wkdir}/stats/${submodule}
 mkdir -p ${output_dir}

@@ -325,9 +325,10 @@ fi #dont del me
 if [ $module == "GET" ]; then
 
         submodule=$2
-	wkdir=$3       #outputdir
+	wkdir=$3	#outputdir
 	scrdir=$4       #scriptsdir
-	file=$5
+	inputdir=$5	#inputdir
+	file=$6
 
 #***************************************#
 #               stats                   #
