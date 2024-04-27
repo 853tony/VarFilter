@@ -245,9 +245,37 @@ if [ "$submodule" == "ModelB_ALL7_ACqcANeq0" ]; then
     done
 fi
 
-#******************************************************************************************#
-#               04a. ModelA spcific ancestry allele frequency filtering	                   #
-#******************************************************************************************#
+#***********************************************#
+#		04. Call rate QC		#
+#***********************************************#
+
+if [ "$submodule" == "ModelA_ALL8_ACqcANqcCRqc" ]; then
+declare -a model_identifiers=(ModelA_ALL8_ACqcANqcCR10qc ModelA_ALL8_ACqcANqcCR20qc ModelA_ALL8_ACqcANqcCR30qc ModelA_ALL8_ACqcANqcCR40qc)
+
+    # Use the function to populate arrays
+    parse_and_fill_arrays "${inp_params}" "${model_identifiers[@]}"
+
+    # Iterate over all arrays and attempt to submit jobs
+    for var in "${model_identifiers[@]}"; do
+        submit_job "$var" "${var}[@]"
+    done
+fi
+
+if [ "$submodule" == "ModelB_ALL7_ACqcANqcCRqc" ]; then
+declare -a model_identifiers=(ModelB_ALL7_ACqcANqcCR10qc ModelA_ALL8_ACqcANqcCR20qc ModelA_ALL8_ACqcANqcCR30qc ModelA_ALL8_ACqcANqcCR40qc)
+
+    # Use the function to populate arrays
+    parse_and_fill_arrays "${inp_params}" "${model_identifiers[@]}"
+
+    # Iterate over all arrays and attempt to submit jobs
+    for var in "${model_identifiers[@]}"; do
+        submit_job "$var" "${var}[@]"
+    done
+fi
+
+#**************************************************************************************************#
+#               05. ModelA/B spcific ancestry allele frequency filtering	                   #
+#**************************************************************************************************#
 
 if [ "$submodule" == "ModelA_ALL8_SpeAncVarFil" ]; then
 declare -a model_identifiers=(
@@ -306,15 +334,27 @@ if [ $module == "GET" ]; then
 #***************************************#
 
         if [ $submodule == "post_analysis" ]; then
-                sbatch ${scrdir}/03_GET_post_analysis.sh ${submodule} ${wkdir} ${scrdir} ${file}
+                sbatch ${scrdir}/03_GET.sh ${submodule} ${wkdir} ${scrdir} ${inputdir} ${file}
+        fi
+
+        if [ $submodule == "CRQC_post_analysis" ]; then
+                sbatch ${scrdir}/03_GET.sh ${submodule} ${wkdir} ${scrdir} ${inputdir} ${file}
         fi
 
 	if [ $submodule == "ModelA" ]; then
-                sbatch ${scrdir}/03_GET.sh ${submodule} ${wkdir} ${scrdir} ${file}
+                sbatch ${scrdir}/03_GET.sh ${submodule} ${wkdir} ${scrdir} ${inputdir} ${file}
+        fi
+
+        if [ $submodule == "ModelA_CR" ]; then
+                sbatch ${scrdir}/03_GET.sh ${submodule} ${wkdir} ${scrdir} ${inputdir} ${file}
         fi
 
         if [ $submodule == "ModelB" ]; then
-                sbatch ${scrdir}/03_GET.sh ${submodule} ${wkdir} ${scrdir} ${file}
+                sbatch ${scrdir}/03_GET.sh ${submodule} ${wkdir} ${scrdir} ${inputdir} ${file}
+        fi
+
+        if [ $submodule == "ModelB_CR" ]; then
+                sbatch ${scrdir}/03_GET.sh ${submodule} ${wkdir} ${scrdir} ${inputdir} ${file}
         fi
 
 fi #dont del me

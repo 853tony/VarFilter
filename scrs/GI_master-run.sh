@@ -75,16 +75,49 @@ bash ${scrdir}/GI_master.sh "filtering" "ModelB_ALL7_ACqcANqc" ${wkdir} ${scrdir
 bash ${scrdir}/GI_master.sh "filtering" "ModelB_ALL7_ACqcANeq0" ${wkdir} ${scrdir} ${AN_cp} ${all7_AN_fc} "TRUE" "any" "TRUE" "any" "VarFilter_ModelB_ALL7_ACqc.tsv" "${miscdir}/03b_all7_ACqcANeq0_varfilter_params.txt"
 
 ##################################
-#@4a (one fix ancestry vs 7 ancestries, 32 combinations in each ancestry. total 256)
-bash ${scrdir}/GI_master.sh "filtering" "ModelA_ALL8_SpeAncVarFil" ${wkdir} ${scrdir} ${AF_cp} ${all8_AF_fc} "TRUE" "all" "TRUE" "all" "VarFilter_ModelA_ALL8_ACqcANqc.tsv" "${miscdir}/04a_all8_c32_256_varfilter_params.txt"
+#@4a (CallRateQC)
+bash ${scrdir}/GI_master.sh "filtering" "ModelA_ALL8_ACqcANqcCRqc" ${wkdir} ${scrdir} ${AN_cp} ${all8_AN_fc} "TRUE" "all" "TRUE" "all" "VarFilter_ModelA_ALL8_ACqcANqc.tsv" "${miscdir}/04a_all8_ACqcANqcCRqc_varfilter_params.txt"
 
-#@4b (one fix ancestry vs 6 ancestries, 32 combinations in each ancestry. total 224)
-bash ${scrdir}/GI_master.sh "filtering" "ModelB_ALL7_SpeAncVarFil" ${wkdir} ${scrdir} ${AF_cp} ${all7_AF_fc} "TRUE" "all" "TRUE" "all" "VarFilter_ModelB_ALL7_ACqcANqc.tsv" "${miscdir}/04b_all7_c32_224_varfilter_params.txt"
+#@4b (CallRateQC)
+bash ${scrdir}/GI_master.sh "filtering" "ModelB_ALL7_ACqcANqcCRqc" ${wkdir} ${scrdir} ${AN_cp} ${all7_AN_fc} "TRUE" "all" "TRUE" "all" "VarFilter_ModelB_ALL7_ACqcANqc.tsv" "${miscdir}/04b_all7_ACqcANqcCRqc_varfilter_params.txt"
+
+##################################
+#@5a (one fix ancestry vs 7 ancestries, 32 combinations in each ancestry. total 256)
+bash ${scrdir}/GI_master.sh "filtering" "ModelA_ALL8_SpeAncVarFil" ${wkdir} ${scrdir} ${AF_cp} ${all8_AF_fc} "TRUE" "all" "TRUE" "all" "VarFilter_ModelA_ALL8_ACqcANqc.tsv" "${miscdir}/05a_all8_c32_256_varfilter_params.txt"
+
+#10%AN
+bash ${scrdir}/GI_master.sh "filtering" "ModelA_ALL8_SpeAncVarFil" ${wkdir} ${scrdir} ${AF_cp} ${all8_AF_fc} "TRUE" "all" "TRUE" "all" "VarFilter_ModelA_ALL8_ACqcANqcCR10qc_8.tsv" "${miscdir}/05a_all8_CR10_c32_256_varfilter_params.txt"
+
+#20%AN
+bash ${scrdir}/GI_master.sh "filtering" "ModelA_ALL8_SpeAncVarFil" ${wkdir} ${scrdir} ${AF_cp} ${all8_AF_fc} "TRUE" "all" "TRUE" "all" "VarFilter_ModelA_ALL8_ACqcANqcCR20qc_8.tsv" "${miscdir}/05a_all8_CR20_c32_256_varfilter_params.txt"
+
+#30%AN
+bash ${scrdir}/GI_master.sh "filtering" "ModelA_ALL8_SpeAncVarFil" ${wkdir} ${scrdir} ${AF_cp} ${all8_AF_fc} "TRUE" "all" "TRUE" "all" "VarFilter_ModelA_ALL8_ACqcANqcCR30qc_8.tsv" "${miscdir}/05a_all8_CR30_c32_256_varfilter_params.txt"
+
+#40%AN
+bash ${scrdir}/GI_master.sh "filtering" "ModelA_ALL8_SpeAncVarFil" ${wkdir} ${scrdir} ${AF_cp} ${all8_AF_fc} "TRUE" "all" "TRUE" "all" "VarFilter_ModelA_ALL8_ACqcANqcCR40qc_8.tsv" "${miscdir}/05a_all8_CR40_c32_256_varfilter_params.txt"
+
+##################################
+#@5b (one fix ancestry vs 6 ancestries, 32 combinations in each ancestry. total 224)
+bash ${scrdir}/GI_master.sh "filtering" "ModelB_ALL7_SpeAncVarFil" ${wkdir} ${scrdir} ${AF_cp} ${all7_AF_fc} "TRUE" "all" "TRUE" "all" "VarFilter_ModelB_ALL7_ACqcANqc.tsv" "${miscdir}/05b_all7_c32_224_varfilter_params.txt"
+
+#10%AN
+bash ${scrdir}/GI_master.sh "filtering" "ModelB_ALL7_SpeAncVarFil" ${wkdir} ${scrdir} ${AF_cp} ${all7_AF_fc} "TRUE" "all" "TRUE" "all" "VarFilter_ModelB_ALL7_ACqcANqcCR10qc_7.tsv" "${miscdir}/05b_all7_CR10_c32_224_varfilter_params.txt"
+
+#20%AN
+bash ${scrdir}/GI_master.sh "filtering" "ModelB_ALL7_SpeAncVarFil" ${wkdir} ${scrdir} ${AF_cp} ${all7_AF_fc} "TRUE" "all" "TRUE" "all" "VarFilter_ModelB_ALL7_ACqcANqcCR20qc_7.tsv" "${miscdir}/05b_all7_CR20_c32_224_varfilter_params.txt"
+
+#30%AN
+bash ${scrdir}/GI_master.sh "filtering" "ModelB_ALL7_SpeAncVarFil" ${wkdir} ${scrdir} ${AF_cp} ${all7_AF_fc} "TRUE" "all" "TRUE" "all" "VarFilter_ModelB_ALL7_ACqcANqcCR30qc_7.tsv" "${miscdir}/05b_all7_CR30_c32_224_varfilter_params.txt"
+
+#40%AN
+bash ${scrdir}/GI_master.sh "filtering" "ModelB_ALL7_SpeAncVarFil" ${wkdir} ${scrdir} ${AF_cp} ${all7_AF_fc} "TRUE" "all" "TRUE" "all" "VarFilter_ModelB_ALL7_ACqcANqcCR40qc_7.tsv" "${miscdir}/05b_all7_CR40_c32_224_varfilter_params.txt"
 
 #############################################################################################
 ### stats # post-analysis
 ## #1.module #2.submodule #3.wkdir #4.scrdir #5.filename
 #@4basic stats
+#AC/AN QC files
 input_dir="${wkdir}"
 post_analysis_list="${miscdir}/VarFilter_post-analysis_list.txt"
 
@@ -93,26 +126,101 @@ while IFS= read -r filename; do
     file="${input_dir}${filename}"
 
     if [[ -f "$file" && $file == *.tsv ]]; then
-        bash "${scrdir}/GI_master.sh" "GET" "post_analysis" "${wkdir}" "${scrdir}" "${filename}"
+        bash "${scrdir}/GI_master.sh" "GET" "post_analysis" "${wkdir}" "${scrdir}" "${input_dir}" "${filename}"
     fi
 done < "$post_analysis_list"
 
+#Call rate QC files
+post_analysis_list="${miscdir}/VarFilter_CR_list.txt"
+
+while IFS= read -r filename; do
+
+    file="${input_dir}${filename}"
+
+    if [[ -f "$file" && $file == *.tsv ]]; then
+        bash "${scrdir}/GI_master.sh" "GET" "CRQC_post_analysis" "${wkdir}" "${scrdir}" "${input_dir}" "${filename}"
+    fi
+done < "$post_analysis_list"
 
 #@4a stats
-input_dir="${wkdir}/ModelA/"
+input_dir="${wkdir}/ModelA_v1/"
 for file in "$input_dir"/*; do
 	if [[ $file == *.tsv ]]; then
 		filename=$(basename "$file")
-		bash ${scrdir}/GI_master.sh "GET" "ModelA" ${wkdir} ${scrdir} ${filename}
+		bash ${scrdir}/GI_master.sh "GET" "ModelA" ${wkdir} ${scrdir} ${input_dir} ${filename}
  	fi
 done
 
+input_dir="${wkdir}/ModelA_CR10/"
+for file in "$input_dir"/*; do
+        if [[ $file == *.tsv ]]; then
+                filename=$(basename "$file")
+                bash ${scrdir}/GI_master.sh "GET" "ModelA_CR" ${wkdir} ${scrdir} ${input_dir} ${filename}
+        fi
+done
+
+input_dir="${wkdir}/ModelA_CR20/"
+for file in "$input_dir"/*; do
+        if [[ $file == *.tsv ]]; then
+                filename=$(basename "$file")
+                bash ${scrdir}/GI_master.sh "GET" "ModelA_CR" ${wkdir} ${scrdir} ${input_dir} ${filename}
+        fi
+done
+
+input_dir="${wkdir}/ModelA_CR30/"
+for file in "$input_dir"/*; do
+        if [[ $file == *.tsv ]]; then
+                filename=$(basename "$file")
+                bash ${scrdir}/GI_master.sh "GET" "ModelA_CR" ${wkdir} ${scrdir} ${input_dir} ${filename}
+        fi
+done
+
+input_dir="${wkdir}/ModelA_CR40/"
+for file in "$input_dir"/*; do
+        if [[ $file == *.tsv ]]; then
+                filename=$(basename "$file")
+                bash ${scrdir}/GI_master.sh "GET" "ModelA_CR" ${wkdir} ${scrdir} ${input_dir} ${filename}
+        fi
+done
+
 #@4b stats
-input_dir="${wkdir}/ModelB/"
+input_dir="${wkdir}/ModelB_v1/"
 for file in "$input_dir"/*; do
        if [[ $file == *.tsv ]]; then
                filename=$(basename "$file")
-               bash ${scrdir}/GI_master.sh "GET" "ModelB" ${wkdir} ${scrdir} ${filename}
+               bash ${scrdir}/GI_master.sh "GET" "ModelB" ${wkdir} ${scrdir} ${input_dir} ${filename}
+       fi
+done
+
+input_dir="${wkdir}/ModelB_CR10/"
+for file in "$input_dir"/*; do
+       if [[ $file == *.tsv ]]; then
+               filename=$(basename "$file")
+               bash ${scrdir}/GI_master.sh "GET" "ModelB_CR" ${wkdir} ${scrdir} ${input_dir} ${filename}
+       fi
+done
+
+input_dir="${wkdir}/ModelB_CR20/"
+for file in "$input_dir"/*; do
+       if [[ $file == *.tsv ]]; then
+               filename=$(basename "$file")
+               bash ${scrdir}/GI_master.sh "GET" "ModelB_CR" ${wkdir} ${scrdir} ${input_dir} ${filename}
+       fi
+done
+
+input_dir="${wkdir}/ModelB_CR30/"
+for file in "$input_dir"/*; do
+       if [[ $file == *.tsv ]]; then
+               filename=$(basename "$file")
+               bash ${scrdir}/GI_master.sh "GET" "ModelB_CR" ${wkdir} ${scrdir} ${input_dir} ${filename}
+       fi
+done
+
+input_dir="${wkdir}/ModelB_CR40/"
+for file in "$input_dir"/*; do
+       if [[ $file == *.tsv ]]; then
+               filename=$(basename "$file")
+               bash ${scrdir}/GI_master.sh "GET" "ModelB_CR" ${wkdir} ${scrdir} ${input_dir} ${filename}
        fi
 done
 
