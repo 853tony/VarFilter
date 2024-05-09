@@ -21,12 +21,20 @@ if [ $module == "af" ]; then
 		sbatch ${scrdir}/00_vcf_information.sh ${datadir} ${wkdir} ${scrdir}
 	fi
 
+	if [ $submodule == "statsv2" ]; then
+		sbatch ${scrdir}/00_vcf_informationv2.sh ${datadir} ${wkdir} ${scrdir}
+	fi
+
 #***********************************************#
 #		Data extraction			#
 #***********************************************#
 
 	if [ $submodule == "extraction" ]; then
 		sbatch ${scrdir}/01_allele_freq_extraction.sh ${datadir} ${wkdir} ${scrdir}
+	fi
+
+	if [ $submodule == "extractionv2" ]; then
+		sbatch ${scrdir}/01_allele_freq_extractionv2.sh ${datadir} ${wkdir} ${scrdir}
 	fi
 
 	if [ $submodule == "extraction_rm_col" ]; then
@@ -105,10 +113,11 @@ function parse_and_fill_arrays {
     done < "$inp_file"
 }
 
-#***********************************************************#
-#               01. all10 allele count QC                   #
-#***********************************************************#
+#*********************************************************************#
+#               gnomadv4. 01. all10 allele count QC                   #
+#*********************************************************************#
 
+# gnomadv4
 if [ "$submodule" == "ALL10_ACqc" ]; then
     declare -a ${submodule}
 
@@ -133,9 +142,9 @@ if [ "$submodule" == "ALL10_ACeq0" ]; then
     done
 fi
 
-#***************************************************************#
-#		02a. ModelA allele count QC			#
-#***************************************************************#
+#***********************************************************************#
+#		gnomadv4. 02a. ModelA allele count QC			#
+#***********************************************************************#
 
 if [ "$submodule" == "ModelA_ALL8_ACqc" ]; then
     declare -a ${submodule}
@@ -161,9 +170,9 @@ if [ "$submodule" == "ModelA_ALL8_ACeq0" ]; then
     done
 fi
 
-#***************************************************************#
-#		02b. ModelB allele count QC			#
-#***************************************************************#
+#***********************************************************************#
+#		gnomadv4. 02b. ModelB allele count QC			#
+#***********************************************************************#
 
 if [ "$submodule" == "ModelB_ALL7_ACqc" ]; then
     declare -a ${submodule}
@@ -189,9 +198,9 @@ if [ "$submodule" == "ModelB_ALL7_ACeq0" ]; then
     done
 fi
 
-#**************************************************************#
-#               03a. ModelA allele number QC                   #
-#**************************************************************#
+#************************************************************************#
+#               gnomadv4. 03a. ModelA allele number QC                   #
+#************************************************************************#
 
 if [ "$submodule" == "ModelA_ALL8_ACqcANqc" ]; then
     declare -a ${submodule}
@@ -217,9 +226,9 @@ if [ "$submodule" == "ModelA_ALL8_ACqcANeq0" ]; then
     done
 fi
 
-#**************************************************************#
-#               03b. ModelB allele number QC                   #
-#**************************************************************#
+#************************************************************************#
+#               gnomadv4. 03b. ModelB allele number QC                   #
+#************************************************************************#
 
 if [ "$submodule" == "ModelB_ALL7_ACqcANqc" ]; then
     declare -a ${submodule}
@@ -245,9 +254,9 @@ if [ "$submodule" == "ModelB_ALL7_ACqcANeq0" ]; then
     done
 fi
 
-#***********************************************#
-#		04. Call rate QC		#
-#***********************************************#
+#*******************************************************#
+#		gnomadv4. 04. Call rate QC		#
+#*******************************************************#
 
 if [ "$submodule" == "ModelA_ALL8_ACqcANqcCRqc" ]; then
 declare -a model_identifiers=(ModelA_ALL8_ACqcANqcCR10qc ModelA_ALL8_ACqcANqcCR20qc ModelA_ALL8_ACqcANqcCR30qc ModelA_ALL8_ACqcANqcCR40qc)
@@ -262,7 +271,7 @@ declare -a model_identifiers=(ModelA_ALL8_ACqcANqcCR10qc ModelA_ALL8_ACqcANqcCR2
 fi
 
 if [ "$submodule" == "ModelB_ALL7_ACqcANqcCRqc" ]; then
-declare -a model_identifiers=(ModelB_ALL7_ACqcANqcCR10qc ModelA_ALL8_ACqcANqcCR20qc ModelA_ALL8_ACqcANqcCR30qc ModelA_ALL8_ACqcANqcCR40qc)
+declare -a model_identifiers=(ModelB_ALL7_ACqcANqcCR10qc ModelB_ALL7_ACqcANqcCR20qc ModelB_ALL7_ACqcANqcCR30qc ModelB_ALL7_ACqcANqcCR40qc)
 
     # Use the function to populate arrays
     parse_and_fill_arrays "${inp_params}" "${model_identifiers[@]}"
@@ -273,9 +282,9 @@ declare -a model_identifiers=(ModelB_ALL7_ACqcANqcCR10qc ModelA_ALL8_ACqcANqcCR2
     done
 fi
 
-#**************************************************************************************************#
-#               05. ModelA/B spcific ancestry allele frequency filtering	                   #
-#**************************************************************************************************#
+#***********************************************************************************************#
+#               gnomadv4. 05. ModelA/B spcific ancestry allele frequency filtering		#
+#***********************************************************************************************#
 
 if [ "$submodule" == "ModelA_ALL8_SpeAncVarFil" ]; then
 declare -a model_identifiers=(
@@ -317,7 +326,92 @@ declare -a model_identifiers=(
     done
 fi
 
+#**************************************************************************#
+#               gnomadv2. all7 allele count/number/CR QC                   #
+#**************************************************************************#
+# allele count
+if [ "$submodule" == "gnomadv2_ALL7_ACqc" ]; then
+    declare -a ${submodule}
+
+    # Use the function to populate arrays
+    parse_and_fill_arrays "${inp_params}" "${submodule}"
+
+    # Iterate over all arrays and attempt to submit jobs
+    for var in ${submodule}; do
+        submit_job "$var" "${var}[@]"
+    done
+fi
+
+if [ "$submodule" == "gnomadv2_ALL7_ACeq0" ]; then
+    declare -a ${submodule}
+
+    # Use the function to populate arrays
+    parse_and_fill_arrays "${inp_params}" "${submodule}"
+
+    # Iterate over all arrays and attempt to submit jobs
+    for var in ${submodule}; do
+        submit_job "$var" "${var}[@]"
+    done
+fi
+# allele number
+if [ "$submodule" == "gnomadv2_ALL7_ACqcANqc" ]; then
+    declare -a ${submodule}
+
+    # Use the function to populate arrays
+    parse_and_fill_arrays "${inp_params}" "${submodule}"
+
+    # Iterate over all arrays and attempt to submit jobs
+    for var in ${submodule}; do
+        submit_job "$var" "${var}[@]"
+    done
+fi
+
+if [ "$submodule" == "gnomadv2_ALL7_ACqcANeq0" ]; then
+    declare -a ${submodule}
+
+    # Use the function to populate arrays
+    parse_and_fill_arrays "${inp_params}" "${submodule}"
+
+    # Iterate over all arrays and attempt to submit jobs
+    for var in ${submodule}; do
+        submit_job "$var" "${var}[@]"
+    done
+fi
+# CR
+if [ "$submodule" == "gnomadv2_ALL7_ACqcANqcCRqc" ]; then
+declare -a model_identifiers=(gnomadv2_ALL7_ACqcANqcCR10qc gnomadv2_ALL7_ACqcANqcCR20qc gnomadv2_ALL7_ACqcANqcCR30qc gnomadv2_ALL7_ACqcANqcCR40qc)
+
+    # Use the function to populate arrays
+    parse_and_fill_arrays "${inp_params}" "${model_identifiers[@]}"
+
+    # Iterate over all arrays and attempt to submit jobs
+    for var in "${model_identifiers[@]}"; do
+        submit_job "$var" "${var}[@]"
+    done
+fi
+# AF_filter
+if [ "$submodule" == "gnomadv2_ALL7_SpeAncVarFil" ]; then
+declare -a model_identifiers=(
+    gnomadv2_EAS_C1 gnomadv2_EAS_C5 gnomadv2_EAS_C10 gnomadv2_EAS_C20 gnomadv2_EAS_R05 gnomadv2_EAS_R01 gnomadv2_EAS_R005 gnomadv2_EAS_R001
+    gnomadv2_SAS_C1 gnomadv2_SAS_C5 gnomadv2_SAS_C10 gnomadv2_SAS_C20 gnomadv2_SAS_R05 gnomadv2_SAS_R01 gnomadv2_SAS_R005 gnomadv2_SAS_R001
+    gnomadv2_FIN_C1 gnomadv2_FIN_C5 gnomadv2_FIN_C10 gnomadv2_FIN_C20 gnomadv2_FIN_R05 gnomadv2_FIN_R01 gnomadv2_FIN_R005 gnomadv2_FIN_R001
+    gnomadv2_NFE_C1 gnomadv2_NFE_C5 gnomadv2_NFE_C10 gnomadv2_NFE_C20 gnomadv2_NFE_R05 gnomadv2_NFE_R01 gnomadv2_NFE_R005 gnomadv2_NFE_R001
+    gnomadv2_AFR_C1 gnomadv2_AFR_C5 gnomadv2_AFR_C10 gnomadv2_AFR_C20 gnomadv2_AFR_R05 gnomadv2_AFR_R01 gnomadv2_AFR_R005 gnomadv2_AFR_R001
+    gnomadv2_AMR_C1 gnomadv2_AMR_C5 gnomadv2_AMR_C10 gnomadv2_AMR_C20 gnomadv2_AMR_R05 gnomadv2_AMR_R01 gnomadv2_AMR_R005 gnomadv2_AMR_R001
+    gnomadv2_ASJ_C1 gnomadv2_ASJ_C5 gnomadv2_ASJ_C10 gnomadv2_ASJ_C20 gnomadv2_ASJ_R05 gnomadv2_ASJ_R01 gnomadv2_ASJ_R005 gnomadv2_ASJ_R001
+
+)
+    # Use the function to populate arrays
+    parse_and_fill_arrays "${inp_params}" "${model_identifiers[@]}"
+
+    # Iterate over all arrays and attempt to submit jobs
+    for var in "${model_identifiers[@]}"; do
+        submit_job "$var" "${var}[@]"
+    done
+fi
+
 fi #dont del me
+
 #********************************************************#
 #                       Module: GET                      #
 #********************************************************#
@@ -358,4 +452,28 @@ if [ $module == "GET" ]; then
                 sbatch ${scrdir}/03_GET.sh ${submodule} ${wkdir} ${scrdir} ${inputdir} ${file}
         fi
 
+	if [ $submodule == "gnomadv2_post_analysis" ]; then
+		sbatch ${scrdir}/03_GET.sh ${submodule} ${wkdir} ${scrdir} ${inputdir} ${file}
+	fi
+
+        if [ $submodule == "gnomadv2_CR0" ]; then
+                sbatch ${scrdir}/03_GET.sh ${submodule} ${wkdir} ${scrdir} ${inputdir} ${file}
+        fi
+
+        if [ $submodule == "gnomadv2_CR10" ]; then
+                sbatch ${scrdir}/03_GET.sh ${submodule} ${wkdir} ${scrdir} ${inputdir} ${file}
+        fi
+
+        if [ $submodule == "gnomadv2_CR20" ]; then
+                sbatch ${scrdir}/03_GET.sh ${submodule} ${wkdir} ${scrdir} ${inputdir} ${file}
+        fi
+
+        if [ $submodule == "gnomadv2_CR30" ]; then
+                sbatch ${scrdir}/03_GET.sh ${submodule} ${wkdir} ${scrdir} ${inputdir} ${file}
+        fi
+
+        if [ $submodule == "gnomadv2_CR40" ]; then
+                sbatch ${scrdir}/03_GET.sh ${submodule} ${wkdir} ${scrdir} ${inputdir} ${file}
+        fi
+	
 fi #dont del me
