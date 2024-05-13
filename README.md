@@ -76,7 +76,7 @@ We designed a series of filtering condition combinations based on allele frequen
 - Variants with allele frequency less than 0.5%, 0.1%, 0.05%, or 0.01% in the target population and greater than or equal to 1%, 5%, 10%, or 20% in all other populations.
 These filtering conditions were applied to (STEP)3A, 4A.1, 4A.2, 4A.3, 4A.4 files in ModelA for gnomAD v4.0.0, resulting in a total of 256x5 condition combinations for ModelA.
 
-![VarFilter_summary_gnomADv4.0_ModelA_CR40.pdf](https://github.com/853tony/VarFilter/blob/main/VarFilter_summary_ModelA_CR40.pdf)
+![image](https://github.com/853tony/VarFilter/blob/main/VarFilter_summary_ModelA_CR40.pdf)
 
 #gnomAD v4.0.0 modelA: 256 condition combinations AFTER CALL RATE 40%QC.
 These filtering conditions were applied to (STEP)3B, 4B.1, 4B.2, 4B.3, 4B.4 files in ModelB for gnomAD v4.0.0, resulting in a total of 224x5 condition combinations for ModelB.
