@@ -1,7 +1,9 @@
 # VarFilter
 
 This is a variants filtering analysis pipeline for the WES from gnomAD v2.1.1 and v4.0.0. 
+
 We analysis the gnomADv4.0.0 data for allele count, allele number, and allele frequency. 
+
 This study aims to identify population-specific common or rare genetic variants by leveraging WES data and analyzing differences in allele frequencies across populations. We employed a customized filtering and analysis pipeline that includes data extraction, variant filtering.
 
 ### Variant extraction
@@ -38,7 +40,9 @@ gnomAD v4.0.0 WES:
 
 ### Variant QC
 In variant filtering process for gnomAD v4.0.0, initially, we performed quality control based on allele count (AC) and allele number (AN) values. We then employed two population genetic structure models, ModelA and ModelB, to account for different population stratification scenarios. 
+
 ModelA considered eight populations (EAS, SAS, NFE, FIN, AFR, AMR, ASJ, and MID).
+
 ModelB focused on seven populations (EAS, SAS, NFE, FIN, AFR, AMR, and ASJ).
 
 gnomAD v4.0.0 WES:
