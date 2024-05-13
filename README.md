@@ -4,7 +4,7 @@ This is a variants filtering analysis pipeline for the WES from gnomAD v2.1.1 an
 
 This study aims to identify population-specific common or rare genetic variants by leveraging WES data and analyzing differences in allele frequencies across populations. We employed a customized filtering and analysis pipeline that includes data extraction, variant filtering.
 
-### Variant extraction
+### Variants extraction
 First, we used BCFtools to decompress the compressed VCF files and calculate variant statistics for each chromosome. Next, we developed a Python script that utilizes the cyvcf2 package to extract allele frequencies and other relevant information from the VCF files and organize the results into a standard TSV format.
 
 gnomAD v4.0.0 WES:
@@ -36,7 +36,7 @@ gnomAD v4.0.0 WES:
 | chrY       | 140758            | 128336         | 12422            |
 | Total      | 183558769         | 167897387      | 15661381         |
 
-### Variant QC
+### Variants QC
 In variant filtering process for gnomAD v4.0.0, initially, we performed quality control based on allele count (AC) and allele number (AN) values. We then employed two population genetic structure models, ModelA and ModelB, to account for different population stratification scenarios. 
 
 ModelA considered eight populations (EAS, SAS, NFE, FIN, AFR, AMR, ASJ, and MID).
@@ -73,7 +73,7 @@ gnomAD v2.1.1 WES:
 | 3.3 (call rate 30% QC)   | Keep all AN > 30%ANmax in all pop | 15401073 |
 | 3.4 (call rate 40% QC)   | Keep all AN > 40%ANmax in all pop | 15397425 |
 
-### Variant filtering
+### Variants filtering
 We designed a series of filtering condition combinations based on allele frequency differences among populations to progressively narrow down the candidate variant set. The filtering conditions included:
 - Variants with allele frequency greater than or equal to 1%, 5%, 10%, or 20% in the target population and less than 0.5%, 0.1%, 0.05%, or 0.01% in all other populations.
 - Variants with allele frequency less than 0.5%, 0.1%, 0.05%, or 0.01% in the target population and greater than or equal to 1%, 5%, 10%, or 20% in all other populations.
