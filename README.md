@@ -6,6 +6,7 @@ This study aims to identify population-specific common or rare genetic variants 
 
 ### Variant extraction
 First, we used BCFtools to decompress the compressed VCF files and calculate variant statistics for each chromosome. Next, we developed a Python script that utilizes the cyvcf2 package to extract allele frequencies and other relevant information from the VCF files and organize the results into a standard TSV format.
+
 gnomAD v4.0.0 WES:
 | Chromosome | Number of Records | Number of SNPs | Number of Indels |
 |------------|-------------------|----------------|------------------|
