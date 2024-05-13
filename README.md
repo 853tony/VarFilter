@@ -45,41 +45,41 @@ gnomAD v4.0.0 WES:
 |------|----|-------------------|
 | 0    | extract the vcf | 183558769 |
 | 1    | Keep any AC > 0 in all pop | 86291641 |
-| 2A   | ModelA: Keep any AC > 0 in 8 pop | 84048207 |
-| 3A   | ModelA: Keep all AN > 0 in 8 pop | 83977475 |
-| 4A.1(call rate 10% QC)   | ModelA: Keep all AN > 10%ANmax in 8 pop | 83651955 |
-| 4A.2(call rate 20% QC)   | ModelA: Keep all AN > 20%ANmax in 8 pop | 83355286 |
-| 4A.3(call rate 30% QC)   | ModelA: Keep all AN > 30%ANmax in 8 pop | 82995279 |
-| 4A.4(call rate 40% QC)   | ModelA: Keep all AN > 40%ANmax in 8 pop | 82376516 |
-| 2B   | ModelB: Keep any AC > 0 in 7 pop | 83515954 |
-| 3B   | ModelB: Keep all AN > 0 in 7 pop | 83458401 |
-| 4B.1(call rate 10% QC)   | ModelB: Keep all AN > 10%ANmax in 7 pop | 83127419 |
-| 4B.2(call rate 20% QC)   | ModelB: Keep all AN > 20%ANmax in 7 pop | 82833852 |
-| 4B.3(call rate 30% QC)   | ModelB: Keep all AN > 30%ANmax in 7 pop | 82477764 |
-| 4B.4(call rate 40% QC)   | ModelB: Keep all AN > 40%ANmax in 7 pop | 81866138 |
+| 2A (Allele count QC)   | ModelA: Keep any AC > 0 in 8 pop | 84048207 |
+| 3A (Allele number QC)   | ModelA: Keep all AN > 0 in 8 pop | 83977475 |
+| 4A.1 (call rate 10% QC)   | ModelA: Keep all AN > 10%ANmax in 8 pop | 83651955 |
+| 4A.2 (call rate 20% QC)   | ModelA: Keep all AN > 20%ANmax in 8 pop | 83355286 |
+| 4A.3 (call rate 30% QC)   | ModelA: Keep all AN > 30%ANmax in 8 pop | 82995279 |
+| 4A.4 (call rate 40% QC)   | ModelA: Keep all AN > 40%ANmax in 8 pop | 82376516 |
+| 2B (Allele count QC)   | ModelB: Keep any AC > 0 in 7 pop | 83515954 |
+| 3B (Allele number QC)   | ModelB: Keep all AN > 0 in 7 pop | 83458401 |
+| 4B.1 (call rate 10% QC)   | ModelB: Keep all AN > 10%ANmax in 7 pop | 83127419 |
+| 4B.2 (call rate 20% QC)   | ModelB: Keep all AN > 20%ANmax in 7 pop | 82833852 |
+| 4B.3 (call rate 30% QC)   | ModelB: Keep all AN > 30%ANmax in 7 pop | 82477764 |
+| 4B.4 (call rate 40% QC)   | ModelB: Keep all AN > 40%ANmax in 7 pop | 81866138 |
 
 In variant filtering process for gnomAD v2.1.1, we performed quality control based on allele count (AC) and allele number (AN) values. We only employed one genetic structure models about seven populations (EAS, SAS, NFE, FIN, AFR, AMR, and ASJ).
 gnomAD v2.1.1 WES:
 | STEP | Description | Number of Records |
 |------|----|-------------------|
 | 0    | extract the vcf | 17209972 |
-| 1    | Keep any AC > 0 in all pop | 15425384 |
-| 2   | Keep all AN > 0 in all pop | 15417683 |
-| 3.1(call rate 10% QC)   | Keep all AN > 10%ANmax in all pop | 15408487 |
-| 3.2(call rate 20% QC)   | Keep all AN > 20%ANmax in all pop | 15404555 |
-| 3.3(call rate 30% QC)   | Keep all AN > 30%ANmax in all pop | 15401073 |
-| 3.4(call rate 40% QC)   | Keep all AN > 40%ANmax in all pop | 15397425 |
+| 1 (Allele count QC)    | Keep any AC > 0 in all pop | 15425384 |
+| 2 (Allele number QC)   | Keep all AN > 0 in all pop | 15417683 |
+| 3.1 (call rate 10% QC)   | Keep all AN > 10%ANmax in all pop | 15408487 |
+| 3.2 (call rate 20% QC)   | Keep all AN > 20%ANmax in all pop | 15404555 |
+| 3.3 (call rate 30% QC)   | Keep all AN > 30%ANmax in all pop | 15401073 |
+| 3.4 (call rate 40% QC)   | Keep all AN > 40%ANmax in all pop | 15397425 |
 
 ### Variant filtering
 We designed a series of filtering condition combinations based on allele frequency differences among populations to progressively narrow down the candidate variant set. The filtering conditions included:
 - Variants with allele frequency greater than or equal to 1%, 5%, 10%, or 20% in the target population and less than 0.5%, 0.1%, 0.05%, or 0.01% in all other populations.
 - Variants with allele frequency less than 0.5%, 0.1%, 0.05%, or 0.01% in the target population and greater than or equal to 1%, 5%, 10%, or 20% in all other populations.
 These filtering conditions were applied to (STEP)3A, 4A.1, 4A.2, 4A.3, 4A.4 files in ModelA for gnomAD v4.0.0, resulting in a total of 256x5 condition combinations for ModelA.
-[VarFilter_summary_ModelA_CR40.pdf](https://github.com/853tony/VarFilter/files/15291137/VarFilter_summary_ModelA_CR40.pdf)
+[VarFilter_summary_gnomADv4.0_ModelA_CR40.pdf](https://github.com/853tony/VarFilter/blob/main/VarFilter_summary_ModelA_CR40.pdf)
 #gnomAD v4.0.0 modelA: 256 condition combinations AFTER CALL RATE 40%QC.
 These filtering conditions were applied to (STEP)3B, 4B.1, 4B.2, 4B.3, 4B.4 files in ModelB for gnomAD v4.0.0, resulting in a total of 224x5 condition combinations for ModelB.
-[VarFilter_summary_ModelB_CR40.pdf](https://github.com/853tony/VarFilter/files/15291140/VarFilter_summary_ModelB_CR40.pdf)
+[VarFilter_summary_gnomADv4.0_ModelB_CR40.pdf](https://github.com/853tony/VarFilter/blob/main/VarFilter_summary_ModelB_CR40.pdf)
 #gnomAD v4.0.0 modelB: 224 condition combinations AFTER CALL RATE 40%QC.
 These filtering conditions were applied to (STEP)3.1, 3.2, 3.3, 3.4 files for gnomAD v2.1.1, resulting in a total of 224x5 condition combinations for seven populations (EAS, SAS, NFE, FIN, AFR, AMR, and ASJ).
-[VarFilter_summary_CR40.pdf](https://github.com/853tony/VarFilter/files/15291144/VarFilter_summary_CR40.pdf)
+[VarFilter_summary_gnomADv2.1_CR40.pdf](https://github.com/853tony/VarFilter/blob/main/VarFilter_summary_CR40.pdf)
 #gnomAD v2.1.1 seven populations (EAS, SAS, NFE, FIN, AFR, AMR, and ASJ): 224 condition combinations AFTER CALL RATE 40%QC.
