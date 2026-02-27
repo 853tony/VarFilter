@@ -1,7 +1,0 @@
-MAF_METADATA_gnomadv2_exomes.tsv
-VarFilter_gnomadv2_ALL7_ACqc.tsv
-VarFilter_gnomadv2_ALL7_ACqcANqc.tsv
-VarFilter_gnomadv2_ALL7_ACqcANqcCR10qc_7.tsv
-VarFilter_gnomadv2_ALL7_ACqcANqcCR20qc_7.tsv
-VarFilter_gnomadv2_ALL7_ACqcANqcCR30qc_7.tsv
-VarFilter_gnomadv2_ALL7_ACqcANqcCR40qc_7.tsv
