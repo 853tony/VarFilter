@@ -61,18 +61,6 @@ gnomAD v4.0.0 WES:
 | 4B.3 (call rate 30% QC)   | ModelB: Keep all AN > 30%ANmax in 7 pop | 82477764 |
 | 4B.4 (call rate 40% QC)   | ModelB: Keep all AN > 40%ANmax in 7 pop | 81866138 |
 
-In variant filtering process for gnomAD v2.1.1, we performed quality control based on allele count (AC) and allele number (AN) values. We only employed one genetic structure models about seven populations (EAS, SAS, NFE, FIN, AFR, AMR, and ASJ).
-gnomAD v2.1.1 WES:
-| STEP | Description | Number of Records |
-|------|----|-------------------|
-| 0    | extract the vcf | 17209972 |
-| 1 (Allele count QC)    | Keep any AC > 0 in all pop | 15425384 |
-| 2 (Allele number QC)   | Keep all AN > 0 in all pop | 15417683 |
-| 3.1 (call rate 10% QC)   | Keep all AN > 10%ANmax in all pop | 15408487 |
-| 3.2 (call rate 20% QC)   | Keep all AN > 20%ANmax in all pop | 15404555 |
-| 3.3 (call rate 30% QC)   | Keep all AN > 30%ANmax in all pop | 15401073 |
-| 3.4 (call rate 40% QC)   | Keep all AN > 40%ANmax in all pop | 15397425 |
-
 ### Variants filtering
 We designed a series of filtering condition combinations based on allele frequency differences among populations to progressively narrow down the candidate variant set. The filtering conditions included:
 - Variants with allele frequency greater than or equal to 1%, 5%, 10%, or 20% in the target population and less than 0.5%, 0.1%, 0.05%, or 0.01% in all other populations.
@@ -85,7 +73,3 @@ These filtering conditions were applied to (STEP)3A, 4A.1, 4A.2, 4A.3, 4A.4 file
 These filtering conditions were applied to (STEP)3B, 4B.1, 4B.2, 4B.3, 4B.4 files in ModelB for gnomAD v4.0.0, resulting in a total of 224x5 condition combinations for ModelB.
 ![VarFilter_summary_gnomADv4.0_ModelB_CR40](https://github.com/853tony/VarFilter/blob/main/VarFilter_summary_ModelB_CR40.png)
 #gnomAD v4.0.0 modelB: 224 condition combinations AFTER CALL RATE 40%QC.
-
-These filtering conditions were applied to (STEP)3.1, 3.2, 3.3, 3.4 files for gnomAD v2.1.1, resulting in a total of 224x5 condition combinations for seven populations (EAS, SAS, NFE, FIN, AFR, AMR, and ASJ).
-![VarFilter_summary_gnomADv2.1_CR40](https://github.com/853tony/VarFilter/blob/main/VarFilter_summary_CR40.png)
-#gnomAD v2.1.1 seven populations (EAS, SAS, NFE, FIN, AFR, AMR, and ASJ): 224 condition combinations AFTER CALL RATE 40%QC.
