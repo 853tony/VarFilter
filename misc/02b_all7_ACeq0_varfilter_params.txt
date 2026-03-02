@@ -1,1 +1,0 @@
-"ModelB_ALL7_ACeq0" "ModelB_ALL7_ACeq0" none 999 eas,sas,nfe,fin,afr,amr,asj 0
